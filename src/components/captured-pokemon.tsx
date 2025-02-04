@@ -1,29 +1,20 @@
-import { usePokedexContext } from "../context/pokedex";
+import { NavBar } from "./layout/navigation-bar";
+import { SearchToggleView } from "./layout/search-toggle-view";
 
-export default function CapturedPokemon() {
-  const { capturedPokemon } = usePokedexContext();
-
-  const capturedList = Object.keys(capturedPokemon);
-
+export const CapturedPokemon = () => {
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Captured Pokémon</h2>
+    <>
+      <div className="app">
+        <div className="container border m-20">
+          {/* NavBar Component */}
+          <NavBar />
 
-      {capturedList.length === 0 ? (
-        <p>No Pokémon captured yet!</p>
-      ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {capturedList.map((name) => (
-            <div key={name} className="p-4 border rounded-md text-center">
-              <p className="capitalize font-semibold">{name}</p>
-              <p className="text-sm text-green-600">
-                Nickname: {capturedPokemon[name].nickname} <br />
-                Date: {capturedPokemon[name].date}
-              </p>
-            </div>
-          ))}
+          <h1 className="uppercase text-center">Captured Pokemon</h1>
+
+          {/* Search Toggle View Component */}
+          <SearchToggleView />
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
-}
+};

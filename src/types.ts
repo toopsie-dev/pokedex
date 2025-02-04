@@ -8,5 +8,7 @@ export type PokedexPropType = {
   setIsGridView: (value: boolean) => void;
   offset: number;
   setOffset: (value: number) => void;
+  selectedPokemon: string;
+  handleCapture: (name: string) => void;
   capturedPokemon: { [key: string]: { date: string; nickname: string } };
 };

@@ -1,25 +1,50 @@
-import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { AllPokemon } from "./all-pokemon";
-import CapturedPokemon from "./captured-pokemon";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { usePokedexContext } from "../context/pokedex";
 
-export const TagAsCapture = () => {
+export const TagCapturePokemon = () => {
+  const { pokemonList, selectedPokemon } = usePokedexContext();
+
+  const filteredPokemon =
+    pokemonList?.filter(
+      (pokemon: { name: string }) => pokemon.name === selectedPokemon
+    ) || [];
+
+  //   Get last segment of the URL to get image ID
+  const lastUrlSegment = () => {
+    const usrl = filteredPokemon[0].url.toString();
+    const segment = usrl.split("/").filter(Boolean).pop();
+    localStorage.setItem("imageId", String(Number(segment)));
+    localStorage.setItem("selectedPokemon", JSON.stringify(selectedPokemon));
+  };
+
+  useEffect(() => {
+    lastUrlSegment();
+  }, [selectedPokemon]);
+
   return (
-    <div className=" max-w-full flex justify-center">
-      <Router>
-        <nav className="flex gap-4 p-4 bg-gray-200 dark:bg-gray-800">
-          <Link to="/" className="p-2 bg-blue-500 text-white rounded-md">
-            All Pokemon
-          </Link>
-          <Link to="/captured" className="p-2 bg-red-500 text-white rounded-md">
-            Captured Pokemon
-          </Link>
-        </nav>
-        <Routes>
-          <Route path="/" element={<AllPokemon />} />
-          <Route path="/captured" element={<CapturedPokemon />} />
-          <Route path="/tag" element={<TagAsCapture />} />
-        </Routes>
-      </Router>
-    </div>
+    <>
+      <div className="app">
+        <div className="container border m-20">
+          <div className="flex gap-5 justify-end mb-15">
+            <Link to="/" className="link">
+              Go Back
+            </Link>
+          </div>
+          {filteredPokemon.length !== 0 && (
+            <div>
+              <img
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${localStorage.getItem(
+                  "imageId"
+                )}.png`}
+                alt={filteredPokemon[0].name}
+              />
+              <h2>{filteredPokemon[0].name}</h2>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
