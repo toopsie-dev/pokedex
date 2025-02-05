@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { usePokedexContext } from "../context/pokedex";
 
 export const TagCapturePokemon: React.FC = () => {
   const { pokemonList, selectedPokemon, setCapturedPokemon } =
     usePokedexContext();
+
+  const navigate = useNavigate(); // ✅ Initialize navigate
 
   // Fetch pokemon data with the selected pokemon
   const filteredPokemon =
@@ -46,6 +48,7 @@ export const TagCapturePokemon: React.FC = () => {
       [selectedPokemon]: { date: formData.date, nickname: formData.nickname },
     }));
     alert("Captured Pokémon saved!");
+    navigate("/", { replace: true });
 
     // Optional: Reset form after submission
     // setFormData({ nickname: "", date: "" });

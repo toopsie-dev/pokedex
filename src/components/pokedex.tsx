@@ -10,7 +10,6 @@ export const PokedexComponent = () => {
     isGridView,
     setIsGridView,
     offset,
-    // setOffset,
     capturedPokemon,
   } = usePokedexContext();
 

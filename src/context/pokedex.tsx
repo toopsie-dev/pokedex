@@ -51,6 +51,7 @@ export const PokedexProvider = ({ children }: PokedexContextProps) => {
     return JSON.parse(localStorage.getItem("capturedPokemon") || "{}");
   });
 
+  // Fetching API response to store in pokemonlist data
   const {
     data: pokemonList,
     isLoading,
@@ -60,11 +61,13 @@ export const PokedexProvider = ({ children }: PokedexContextProps) => {
     queryFn: () => fetchPokemonList(limit, offset),
   });
 
+  // Render every captured data changes
   useEffect(() => {
     localStorage.setItem("capturedPokemon", JSON.stringify(capturedPokemon));
     <AllPokemon />;
   }, [capturedPokemon]);
 
+  // Render every captured data changes
   useEffect(() => {
     localStorage.setItem("selectedPokemon", JSON.stringify(selectedPokemon));
   }, [selectedPokemon]);
