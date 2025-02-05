@@ -2,6 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import { AllPokemon } from "../components/all-pokemon";
 import { PokedexPropType } from "../types";
 
 // API Resource
@@ -22,6 +23,7 @@ const PokedexContext = createContext<PokedexContextType>({
   pokemonList: [],
   isLoading: true,
   error: null,
+  limit: 20,
   searchTerm: "",
   setSearchTerm: () => {},
   isGridView: false,
@@ -40,8 +42,8 @@ export type PokedexContextProps = {
 };
 
 export const PokedexProvider = ({ children }: PokedexContextProps) => {
-  const [limit] = useState(60);
-  const [offset, setOffset] = useState(0);
+  const [limit] = useState(20);
+  const [offset, setOffset] = useState<number>(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [isGridView, setIsGridView] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState("");
@@ -60,6 +62,7 @@ export const PokedexProvider = ({ children }: PokedexContextProps) => {
 
   useEffect(() => {
     localStorage.setItem("capturedPokemon", JSON.stringify(capturedPokemon));
+    <AllPokemon />;
   }, [capturedPokemon]);
 
   useEffect(() => {
@@ -76,6 +79,7 @@ export const PokedexProvider = ({ children }: PokedexContextProps) => {
         pokemonList,
         isLoading,
         error,
+        limit,
         searchTerm,
         setSearchTerm,
         isGridView,

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { usePokedexContext } from "../context/pokedex";
 import { NavBar } from "./layout/navigation-bar";
@@ -8,12 +9,14 @@ export const AllPokemon = () => {
     pokemonList,
     isLoading,
     error,
+    limit,
     searchTerm,
     isGridView,
-    offset,
     capturedPokemon,
     handleCapture,
   } = usePokedexContext();
+
+  const [offset, setOffset] = useState<number>(0);
 
   // Checked API response
   if (isLoading) return <p>Loading...</p>;
@@ -77,21 +80,23 @@ export const AllPokemon = () => {
               )
             )}
           </div>
-          {/* <div className="flex justify-between mt-4">
-        <button
-          className="p-2 bg-gray-500 text-white rounded-md disabled:opacity-50"
-          onClick={() => setOffset((prev: number) => Math.max(0, prev - limit))}
-          disabled={offset === 0}
-        >
-          Previous
-        </button>
-        <button
-          className="p-2 bg-green-500 text-white rounded-md"
-          onClick={() => setOffset((prev: unknown) => prev + limit)}
-        >
-          Next
-        </button>
-      </div> */}
+          <div className="flex justify-between mt-4">
+            <button
+              className="p-2 bg-gray-500 text-white rounded-md disabled:opacity-50"
+              onClick={() =>
+                setOffset((prev: number) => Math.max(0, prev - limit))
+              }
+              disabled={offset === 0}
+            >
+              Previous
+            </button>
+            <button
+              className="p-2 bg-green-500 text-white rounded-md"
+              onClick={() => setOffset((prev: number) => prev + limit)}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </>

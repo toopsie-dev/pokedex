@@ -2,6 +2,7 @@ export type PokedexPropType = {
   pokemonList?: { name: string; url: string }[];
   isLoading: boolean;
   error: unknown;
+  limit: number;
   searchTerm: string;
   setSearchTerm: (value: string) => void;
   isGridView: boolean;
