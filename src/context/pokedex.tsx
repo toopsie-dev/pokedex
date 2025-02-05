@@ -31,6 +31,7 @@ const PokedexContext = createContext<PokedexContextType>({
   capturedPokemon: {},
   selectedPokemon: "",
   handleCapture: () => {},
+  setCapturedPokemon: () => {},
 });
 
 // Represents all elements  that can render
@@ -44,7 +45,7 @@ export const PokedexProvider = ({ children }: PokedexContextProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isGridView, setIsGridView] = useState(true);
   const [selectedPokemon, setSelectedPokemon] = useState("");
-  const [capturedPokemon] = useState(() => {
+  const [capturedPokemon, setCapturedPokemon] = useState(() => {
     return JSON.parse(localStorage.getItem("capturedPokemon") || "{}");
   });
 
@@ -60,6 +61,10 @@ export const PokedexProvider = ({ children }: PokedexContextProps) => {
   useEffect(() => {
     localStorage.setItem("capturedPokemon", JSON.stringify(capturedPokemon));
   }, [capturedPokemon]);
+
+  useEffect(() => {
+    localStorage.setItem("selectedPokemon", JSON.stringify(selectedPokemon));
+  }, [selectedPokemon]);
 
   const handleCapture = (_name: string) => {
     setSelectedPokemon(_name);
@@ -80,6 +85,7 @@ export const PokedexProvider = ({ children }: PokedexContextProps) => {
         capturedPokemon,
         selectedPokemon,
         handleCapture,
+        setCapturedPokemon,
       }}
     >
       {children}

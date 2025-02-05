@@ -25,6 +25,19 @@ html {
 h1 {
   font-size: 2.5em;
 }
+h3 {
+  font-size: 1.6em;
+}
+
+img.pokemon-img {
+  width: 300px;
+  height: 300px;
+}
+
+input {
+  padding: 12px;
+  border: 1px solid black;
+}
 
 .link {
   padding: 15px;

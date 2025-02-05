@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { usePokedexContext } from "../context/pokedex";
 
-export const TagCapturePokemon = () => {
-  const { pokemonList, selectedPokemon } = usePokedexContext();
+export const TagCapturePokemon: React.FC = () => {
+  const { pokemonList, selectedPokemon, setCapturedPokemon } =
+    usePokedexContext();
 
+  // Fetch pokemon data with the selected pokemon
   const filteredPokemon =
     pokemonList?.filter(
       (pokemon: { name: string }) => pokemon.name === selectedPokemon
@@ -16,12 +18,38 @@ export const TagCapturePokemon = () => {
     const usrl = filteredPokemon[0].url.toString();
     const segment = usrl.split("/").filter(Boolean).pop();
     localStorage.setItem("imageId", String(Number(segment)));
-    localStorage.setItem("selectedPokemon", JSON.stringify(selectedPokemon));
   };
 
-  useEffect(() => {
-    lastUrlSegment();
-  }, [selectedPokemon]);
+  lastUrlSegment();
+
+  const [formData, setFormData] = useState({
+    nickname: "",
+    date: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!formData.nickname || !formData.date) {
+      alert("Please fill in both fields.");
+      return;
+    }
+
+    // Update localStorage
+    setCapturedPokemon((prev: object) => ({
+      ...prev,
+      [selectedPokemon]: { date: formData.date, nickname: formData.nickname },
+    }));
+    alert("Captured Pokémon saved!");
+
+    // Optional: Reset form after submission
+    // setFormData({ nickname: "", date: "" });
+  };
 
   return (
     <>
@@ -32,17 +60,44 @@ export const TagCapturePokemon = () => {
               Go Back
             </Link>
           </div>
-          {filteredPokemon.length !== 0 && (
-            <div>
-              <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${localStorage.getItem(
-                  "imageId"
-                )}.png`}
-                alt={filteredPokemon[0].name}
+          <div className="flex justify-between items-center">
+            {filteredPokemon.length !== 0 && (
+              <div className="flex flex-col items-center justify-between">
+                <img
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${localStorage.getItem(
+                    "imageId"
+                  )}.png`}
+                  alt={filteredPokemon[0].name}
+                  className="pokemon-img"
+                />
+                <h3 className="uppercase bolder">{filteredPokemon[0].name}</h3>
+              </div>
+            )}
+            <form
+              className="flex flex-col items-start gap-5"
+              onSubmit={handleSubmit}
+            >
+              <h3>Status</h3>
+              <input
+                type="text"
+                name="nickname"
+                value={formData.nickname}
+                onChange={handleChange}
+                placeholder="Enter Nickname .."
+                className="border p-2"
               />
-              <h2>{filteredPokemon[0].name}</h2>
-            </div>
-          )}
+              <input
+                type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                className="border p-2"
+              />
+              <button type="submit" className="bg-black text-white px-4 py-3">
+                Tag as Captured
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </>

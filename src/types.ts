@@ -11,4 +11,5 @@ export type PokedexPropType = {
   selectedPokemon: string;
   handleCapture: (name: string) => void;
   capturedPokemon: { [key: string]: { date: string; nickname: string } };
+  setCapturedPokemon: (value: object) => void;
 };
