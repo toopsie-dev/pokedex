@@ -56,10 +56,10 @@ export const TagCapturePokemon: React.FC = () => {
 
   return (
     <>
-      <div className="app">
-        <div className="container border m-20">
+      <div className="app bg-white-300 dark:bg-gray-800">
+        <div className="container bg-white dark:bg-gray-800 border dark:border-white m-20">
           <div className="flex gap-5 justify-end mb-15">
-            <Link to="/" className="link">
+            <Link to="/" className="link  bg-teal-900  text-white">
               Go Back
             </Link>
           </div>
@@ -73,30 +73,35 @@ export const TagCapturePokemon: React.FC = () => {
                   alt={filteredPokemon[0].name}
                   className="pokemon-img"
                 />
-                <h3 className="uppercase bolder">{filteredPokemon[0].name}</h3>
+                <h3 className="pokemon-name uppercase bolder dark:text-white">
+                  {filteredPokemon[0].name}
+                </h3>
               </div>
             )}
             <form
-              className="flex flex-col items-start gap-5"
+              className="flex flex-col items-start gap-5 dark:bg-gray-900 bg-teal-100"
               onSubmit={handleSubmit}
             >
-              <h3>Status</h3>
+              <h3 className="text-black dark:text-white">Status</h3>
               <input
                 type="text"
                 name="nickname"
                 value={formData.nickname}
                 onChange={handleChange}
                 placeholder="Enter Nickname .."
-                className="border p-2"
+                className="border p-2 dark:text-white"
               />
               <input
                 type="date"
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className="border p-2"
+                className="border p-2 dark:text-white"
               />
-              <button type="submit" className="bg-black text-white px-4 py-3">
+              <button
+                type="submit"
+                className="bg-teal-900  text-white px-4 py-3 rounded-sm"
+              >
                 Tag as Captured
               </button>
             </form>

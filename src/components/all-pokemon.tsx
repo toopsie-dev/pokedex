@@ -13,12 +13,14 @@ export const AllPokemon = () => {
   if (error) return <p>Error loading Pokemon.</p>;
 
   return (
-    <div className="app">
-      <div className="container border m-20">
+    <div className="app bg-white-300 dark:bg-gray-800">
+      <div className="container bg-white dark:bg-gray-800 border dark:border-white m-20">
         {/* NavBar Component */}
         <NavBar />
 
-        <h1 className="uppercase text-center">Pokedex</h1>
+        <h1 className="uppercase text-center text-black dark:text-white">
+          Pokedex
+        </h1>
 
         {/* Search Toggle View Component */}
         <SearchToggleView />

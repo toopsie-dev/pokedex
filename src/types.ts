@@ -14,3 +14,5 @@ export type PokedexPropType = {
   capturedPokemon: { [key: string]: { date: string; nickname: string } };
   setCapturedPokemon: (value: object) => void;
 };
+
+export type ThemeType = "light" | "dark";

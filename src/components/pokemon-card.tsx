@@ -25,7 +25,7 @@ export const PokemonCard = () => {
         (pokemon: { name: string; url: string }, index: number) => (
           <Link to="/tag" key={index}>
             <div
-              className={`p-4 border rounded-md ${
+              className={`p-4 border dark:border-white rounded-md ${
                 isGridView ? "text-center" : "flex items-center space-x-4"
               }`}
               onClick={() => handleCapture(pokemon.name)}
@@ -38,15 +38,17 @@ export const PokemonCard = () => {
                 className={isGridView ? "w-16 h-16 m-auto" : "w-16 h-16 "}
               />
               <div>
-                <p className="capitalize font-semibold">{pokemon.name}</p>
+                <p className="capitalize font-semibold mb-3 dark:text-white">
+                  {pokemon.name}
+                </p>
                 {capturedPokemon[pokemon.name] ? (
-                  <p className="text-sm text-green-600">
+                  <p className="text-sm dark:text-white text-green-600">
                     Captured: {capturedPokemon[pokemon.name].nickname} on{" "}
                     {capturedPokemon[pokemon.name].date}
                   </p>
                 ) : (
-                  <span className="mt-2 p-1 bg-red-500 text-white rounded-md">
-                    Tag as Captured
+                  <span className="mt-2 p-1 text-sm bg-red-500 text-white rounded-md">
+                    Tag as capture
                   </span>
                 )}
               </div>

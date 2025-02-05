@@ -14,7 +14,7 @@ export const Pagination = () => {
         Previous
       </button>
       <button
-        className="p-2 bg-green-500 text-white rounded-md"
+        className="p-2  bg-teal-900 text-white rounded-md"
         onClick={() => setOffset(offset + limit)}
       >
         Next

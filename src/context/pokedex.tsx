@@ -42,7 +42,7 @@ export type PokedexContextProps = {
 };
 
 export const PokedexProvider = ({ children }: PokedexContextProps) => {
-  const [limit] = useState(20);
+  const [limit] = useState(32);
   const [offset, setOffset] = useState<number>(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [isGridView, setIsGridView] = useState(true);

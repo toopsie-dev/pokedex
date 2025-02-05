@@ -43,12 +43,14 @@ export const CapturedPokemon = () => {
 
   return (
     <>
-      <div className="app">
-        <div className="container border m-20">
+      <div className="app bg-white-300 dark:bg-gray-800">
+        <div className="container bg-white dark:bg-gray-800 border dark:border-white m-20">
           {/* NavBar Component */}
           <NavBar />
 
-          <h1 className="uppercase text-center">Captured Pokemon</h1>
+          <h1 className="uppercase text-center text-black dark:text-white">
+            Captured Pokemon
+          </h1>
 
           {/* Search Toggle View Component */}
           <SearchToggleView />
@@ -62,8 +64,10 @@ export const CapturedPokemon = () => {
             {filteredPokemon.map(
               (pokemon: { name: string; url: string }, index: number) => (
                 <div
-                  className={`p-4 border rounded-md ${
-                    isGridView ? "text-center" : "flex items-center space-x-4"
+                  className={`p-4 border dark:border-white rounded-md ${
+                    isGridView
+                      ? "text-center"
+                      : "flex items-center justify-around space-x-4"
                   }`}
                   key={index}
                   onClick={() => handleCapture(pokemon.name)}
@@ -76,9 +80,11 @@ export const CapturedPokemon = () => {
                     className={isGridView ? "w-16 h-16 m-auto" : "w-16 h-16 "}
                   />
                   <div>
-                    <p className="capitalize font-semibold">{pokemon.name}</p>
+                    <p className="capitalize font-semibold dark:text-white">
+                      {pokemon.name}
+                    </p>
                     {capturedPokemon[pokemon.name] ? (
-                      <p className="text-sm text-green-600">
+                      <p className="uppercase text-center text-black dark:text-white">
                         Captured: {capturedPokemon[pokemon.name].nickname} on{" "}
                         {capturedPokemon[pokemon.name].date}
                       </p>
@@ -89,7 +95,7 @@ export const CapturedPokemon = () => {
                     )}
                   </div>
                   <button
-                    className="px-3 py-2 bg-red-400 self-end"
+                    className="mt-5 rounded-sm px-3 py-2 bg-red-400 self-end"
                     onClick={() => handleRemoveCapture(pokemon.name)}
                   >
                     Remove
